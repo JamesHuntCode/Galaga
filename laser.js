@@ -1,0 +1,3 @@
+function laser(x, y) {
+
+}
