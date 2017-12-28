@@ -3,12 +3,15 @@ function enemy(x, y) {
   this.posY = y;
   this.size = 40;
   this.velocityX = random(-5, 5);
-  this.velocityY = random(1, 5);
+  this.velocityY = random(1, 3);
 
   // Move enemy ship and random velocities
   this.update = function() {
+    if (this.velocityX === 0) {
+      this.velocityX = 3;
+    }
     this.posX += this.velocityX;
-    this.posY += this.velocityY / 2;
+    this.posY += this.velocityY;
   }
 
   // Draw enemy ship
@@ -24,9 +27,9 @@ function enemy(x, y) {
       this.posX = width + this.size / 2;
     }
 
-    if (this.posY - this.size / 2 > height) {
+    if (this.posY - this.size> height) {
       this.posY = 0 - this.size / 2;
-    } else if (this.posY + this.size / 2 < 0) {
+    } else if (this.posY + this.size < 0) {
       this.posY = height + this.size / 2;
     }
   }
@@ -42,8 +45,10 @@ function enemy(x, y) {
 
   // Check if enemy ship has hit player icon
   this.touches = function(spaceship) {
-    if ((this.posX - this.size / 2 < spaceship.posX) && (this.posX + this.size / 2 > spaceship.posX) && (this.posY - this.size / 2 > spaceship.posY)) {
-      return true;
+    if ((this.posX - this.size / 2 < spaceship.posX) && (this.posX + this.size / 2 > spaceship.posX)) {
+      if ((this.posY - this.size / 2 > spaceship.posY) && (this.posY < height)) {
+        return true;
+      }
     } else {
       return false;
     }

@@ -22,7 +22,16 @@ function enemyLaser(x, y) {
   }
 
   // Check if laser has hit the player
-  this.hit = function(playerPosX, playerPosY) {
-
+  this.hits = function(spaceship) {
+    if ((this.posX - this.size / 2 >= spaceship.posX - spaceship.size / 2) && (this.posX + this.size / 2 <= spaceship.posX + spaceship.size / 2)) {
+      if ((this.posY + this.size / 2 >= spaceship.posY) && (this.posY <= height)) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+    else {
+      return false;
+    }
   }
 }

@@ -15,7 +15,7 @@ function setup() {
     stars[i] = new star(Math.floor(Math.random() * width), (Math.floor(Math.random() * height)));
   }
 
-  // Setup alien attackers
+  // Setup initial alien wave
   for (let i = 0; i < 3; i++) {
     enemySpacehips[i] = new enemy(0, Math.floor(Math.random() * height / 2));
   }
@@ -41,13 +41,23 @@ function draw() {
 
   // Draw lasers from player
   for (let i = 0; i < lasers.length; i++) {
-    stroke('blue');
-    fill('white');
-    lasers[i].update();
-    lasers[i].show();
+    if (lasers[i].active === true) {
+      stroke('blue');
+      fill('white');
+      lasers[i].update();
+      lasers[i].show();
 
-    if (lasers[i].offScreen()) {
-      lasers.splice(i, 1);
+    // Check if user has shot an enemy
+      for (let j = 0; j < enemySpacehips.length; j++) {
+        if (lasers[i].hits(enemySpacehips[j])) {
+          enemySpacehips.splice(j, 1);
+          lasers[i].active = false;
+        }
+      }
+
+      if (lasers[i].offScreen()) {
+        lasers.splice(i, 1);
+      }
     }
   }
 
@@ -68,6 +78,11 @@ function draw() {
     if (enemySpacehips[i].touches(spaceship)) {
       location.reload();
     }
+
+    // Check amount in enemy fleet
+    if (enemySpacehips.length === 0) {
+      // Make another fleet
+    }
   }
 
   // Draw enemy laser rays
@@ -76,6 +91,10 @@ function draw() {
     fill('white');
     enemyLasers[i].update();
     enemyLasers[i].show();
+
+    if (enemyLasers[i].hits(spaceship)) {
+      location.reload();
+    }
 
     if (enemyLasers[i].offScreen()) {
       enemyLasers.splice(i, 1);
