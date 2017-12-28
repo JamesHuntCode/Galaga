@@ -18,7 +18,7 @@ function laser(x, y) {
     ellipse(this.posX, this.posY, this.size, this.size);
   }
 
-  this.hit = function(alien) {
-
+  this.hit = function(enemyPosX, enemyPosY) {
+    
   }
 }

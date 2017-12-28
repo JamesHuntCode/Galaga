@@ -6,15 +6,19 @@ var enemyLasers = [];
 
 function setup() {
   createCanvas(600, 600);
+
+  // Setup player icon
   spaceship = new spaceship((width / 2), (height - height / 6));
 
   // Setup starfield
   for (let i = 0; i < 100; i++) {
-    stars[i] = new star(Math.floor(Math.random()*width), (0 - Math.floor(Math.random()*height)));
+    stars[i] = new star(Math.floor(Math.random() * width), (Math.floor(Math.random() * height)));
   }
 
   // Setup alien attackers
-  enemySpacehips.push(new enemy(width/2, height/2));
+  for (let i = 0; i < 2; i++) {
+    enemySpacehips[i] = new enemy(0, Math.floor(Math.random() * height / 2));
+  }
 }
 
 function draw() {
@@ -23,7 +27,7 @@ function draw() {
 
   // Draw moving stars
   for (let i = 0; i < stars.length; i++) {
-    fill('rgba(255, 255, 255, 0.5)');
+    fill('rgba(255, 255, 255, 0.7)');
     stars[i].update();
     stars[i].show();
     stars[i].bounds();
@@ -33,7 +37,6 @@ function draw() {
   stroke('blue')
   fill('white');
   spaceship.show();
-  noStroke();
 
   // Draw lasers from player
   for (let i = 0; i < lasers.length; i++) {
@@ -41,7 +44,6 @@ function draw() {
     fill('white');
     lasers[i].update();
     lasers[i].show();
-    noStroke();
 
     if (lasers[i].offScreen()) {
       lasers.splice(i, 1);
@@ -54,13 +56,24 @@ function draw() {
     fill('white');
     enemySpacehips[i].update();
     enemySpacehips[i].show();
-    noStroke();
+    enemySpacehips[i].bounds();
+
+    // Shoot at player
+    if (enemySpacehips[i].hasClearShot(spaceship.posX)) {
+      enemyLasers.push(new enemyLaser(enemySpacehips[i].posX, enemySpacehips[i].posY));
+    }
   }
 
   // Draw enemy laser rays
   for (let i = 0; i < enemyLasers.length; i++) {
+    stroke('red');
+    fill('white');
     enemyLasers[i].update();
-    enemyLaser[i].show();
+    enemyLasers[i].show();
+
+    if (enemyLasers[i].offScreen()) {
+      enemyLasers.splice(i, 1);
+    }
   }
 }
 

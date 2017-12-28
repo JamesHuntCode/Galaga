@@ -1,7 +1,7 @@
 function star(x, y) {
   this.posX = x;
   this.posY = y;
-  this.size = 5;
+  this.size = 3;
   this.velocity = Math.floor(Math.random() * 10) + 2;
 
   this.update = function() {
