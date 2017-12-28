@@ -1,7 +1,7 @@
-function laser(x, y) {
+function enemyLaser(x, y) {
   this.posX = x;
   this.posY = y;
-  this.size = 8;
+  this.size = 5;
   this.velocity = 15;
 
   this.update = function() {
