@@ -16,7 +16,7 @@ function setup() {
   }
 
   // Setup alien attackers
-  for (let i = 0; i < 2; i++) {
+  for (let i = 0; i < 3; i++) {
     enemySpacehips[i] = new enemy(0, Math.floor(Math.random() * height / 2));
   }
 }
@@ -62,6 +62,11 @@ function draw() {
     // Shoot at player
     if (enemySpacehips[i].hasClearShot(spaceship.posX)) {
       enemyLasers.push(new enemyLaser(enemySpacehips[i].posX, enemySpacehips[i].posY));
+    }
+
+    // Check enemy ship has hit player
+    if (enemySpacehips[i].touches(spaceship)) {
+      location.reload();
     }
   }
 
