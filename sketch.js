@@ -27,7 +27,7 @@ function draw() {
 
   // Draw moving stars
   for (let i = 0; i < stars.length; i++) {
-    fill('rgba(255, 255, 255, 0.7)');
+    fill('rgba(255, 255, 255, 0.5)');
     stars[i].update();
     stars[i].show();
     stars[i].bounds();
@@ -37,6 +37,7 @@ function draw() {
   stroke('blue')
   fill('white');
   spaceship.show();
+  spaceship.edges();
 
   // Draw lasers from player
   for (let i = 0; i < lasers.length; i++) {
