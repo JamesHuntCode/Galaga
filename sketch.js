@@ -80,8 +80,8 @@ function draw() {
     }
 
     // Check amount in enemy fleet
-    if (enemySpacehips.length === 0) {
-      // Make another fleet
+    if (enemySpacehips.length < 3) {
+      enemySpacehips.push(new enemy(0 - 50, Math.floor(Math.random() * height / 2)));
     }
   }
 
